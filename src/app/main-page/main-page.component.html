@@ -1,0 +1,86 @@
+<div class="main-page-wrapper">
+
+  <div class="products">
+    <div class="item-wrapper" *ngFor="let item of apiData">
+      <div class="price-wrapper">
+        <p>${{item.price}}</p>
+      </div>
+      <div class="item-detail">
+        <img src="{{item.path}}">
+        <p>{{item.name}}</p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="forms">
+    <div class="form-header">
+      <div class="user-data">
+        <p class="user-name">Harold Finch</p>
+        <p class="your-total-text">YOUR TOTAL</p>
+      </div>
+      <p class="total-amount">${{totalAmount}}</p>
+    </div>
+
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+      <div class="form-body">
+        <div class="input-fields" *ngIf="isFormActive">
+          <label for="cardNumber">
+            Credit card number: <br>
+            <input class="user-input card-number" type="text" placeholder="123 1234567 1234567" id="cardNumber"
+              formControlName="cardNumber" required/>
+          </label>
+          <br>
+          <label>
+            Expiration date: <br>
+            <select class="user-input month" id="month" formControlName="month" required>
+              <option value="" disabled selected>Month</option>
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+            <select class="user-input year" id="year" formControlName="year" required>
+              <option value="" disabled selected>Year</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+            </select>
+          </label>
+          <br>
+          <label for="CVV">
+            CVV: <br>
+            <input class="user-input cvv" type="text" id="CVV" formControlName="CVV" required/>
+            <small> 3 or 4 digits - <a href="https://reddit.com/">view example</a> </small>
+          </label>
+          <br />
+          <div *ngIf="errorMessage!==''" ><small> <a href="/info">{{ errorMessage }}</a> </small> </div>
+        </div>
+        <div class="button-wrapper" *ngIf="isFormActive">
+          <button class="submit-button" type="submit">Pay</button>
+          <div class="cancel-link">
+            <small> <a href="/">Cancel order</a> </small>
+          </div>
+        </div>
+
+
+        
+        <div *ngIf="isFormActive===false" >
+          <small> <a href="/info">{{ errorMessage }}</a> </small>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
